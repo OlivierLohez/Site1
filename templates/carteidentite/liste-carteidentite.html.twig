@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{parent()}}Liste des demandes de carte identite
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">
+        Liste des demandes de carte identite</h1>
+
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 bg-white p-4 m-0 text-primary">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="fw-bold text-primary">
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prenom</th>
+                            <th scope="col">DateNaissance</th>
+                            <th scope="col">LieuNaissance</th>
+                            <th scope="col">Rue</th>
+                            <th scope="col">Ville</th>
+                            <th scope="col">Code Postal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for info in carteidentite |sort((a, b) => b.JourRepas <=> a.JourRepas) %}
+                        <tr class="{{ cycle(['table-primary', 'table-secondary'], loop.index0) }}">
+                            <td>{{ info.Nom | capitalize }}</td>
+                            <td>{{ info.Prenom | capitalize }}</td>
+                            <td>{{ info.DateNaissance | date("d-m-Y à H:i:s") }}</td>
+                            <td>{{ info.LieuNaissance | lower }}</td>
+                            <td>{{ info.Rue| lower}}</td>
+                            <td>{{ info.Ville| lower}}</td>
+                            <td>{{ info.CP| lower}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

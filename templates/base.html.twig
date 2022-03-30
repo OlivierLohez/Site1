@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block stylesheets %}
+    <!-- Bootstrap CSS -->
+    <link href="https://bootswatch.com/5/cerulean/bootstrap.min.css" rel="stylesheet">
+    {% endblock %}
+    <title>{% block title %}La ville d'arras - {% endblock %}</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{path('index')}}">Arras</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{path('index')}}">Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('contact')}}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('presentation')}}">Presentation de la ville</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Service de la mairie</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{path('cantine')}}">Réservation Cantine</a>
+                            <a class="dropdown-item" href="{{path('carteidentite')}}">Carte Identite</a>
+                        </div>
+                    </li>
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{path('app_login')}}">Se connecter</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{path('app_register')}}">S'inscrire</a>
+                    </li>
+                    {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_logout')}}">
+                            <button type="button" class="btn btn-danger">Déconnexion</button>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Service d'administration</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{path('liste-contacts')}}">Liste de contacts</a>
+                            <a class="dropdown-item" href="{{path('liste-cantine')}}">Liste de la cantine</a>
+                            <a class="dropdown-item" href="{{path('liste-carteidentite')}}">Liste de la carte identite</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% for message in app.flashes('notice') %}
+    <h2 class=" alert alert-warning text-center mt-4 mb-4" role="alert">
+        {{ message }}
+    </h2>
+    {% endfor %}
+
+
+    {% block body %}{% endblock %}
+
+    {% block javascripts %}
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    {% endblock %}
+</body>
+
+</html>
