@@ -39,10 +39,7 @@ class CarteIdentiteType extends AbstractType
         ->add('CP', IntegerType::class, ['attr' => ['class'=> 'form-control']
                                       , 'label_attr' => ['class'=> 'fw-bold']])
 
-        ->add('envoyer', SubmitType::class, ['attr' => ['class'=> 'btn bg-primary text-white m-4' ]
-                                          , 'row_attr' => ['class' => 'text-center'],]);
-                        
-        ;
+        ->add('Envoyer', SubmitType::class, ['attr' => ['class'=> 'btn bg-primary text-white m-4' ], 'row_attr' => ['class' => 'text-center'],]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
