@@ -23,7 +23,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les conditions générales.',
                     ]),
                 ],
             ])
@@ -31,7 +31,7 @@ class RegistrationFormType extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => ['class'=>'form-control','autocomplete' => 'new-password'],'label_attr' => ['class'=> 'fw-bold'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',

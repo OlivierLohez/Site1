@@ -32,6 +32,9 @@ class Fichier
     #[ORM\JoinColumn(nullable: false)]
     private $proprietaire;
 
+    #[ORM\Column(type: 'integer')]
+    private $IDfichier;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Fichier
     public function setProprietaire(?User $proprietaire): self
     {
         $this->proprietaire = $proprietaire;
+
+        return $this;
+    }
+
+    public function getIDfichier(): ?int
+    {
+        return $this->IDfichier;
+    }
+
+    public function setIDfichier(int $IDfichier): self
+    {
+        $this->IDfichier = $IDfichier;
 
         return $this;
     }
