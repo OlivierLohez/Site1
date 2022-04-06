@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FichierRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FichierRepository::class)]
@@ -34,6 +36,14 @@ class Fichier
 
     #[ORM\Column(type: 'integer')]
     private $IDfichier;
+
+    #[ORM\OneToMany(mappedBy: 'IDFichier', targetEntity: Telecharger::class, orphanRemoval: true)]
+    private $telechargers;
+
+    public function __construct()
+    {
+        $this->telechargers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +130,36 @@ class Fichier
     public function setIDfichier(int $IDfichier): self
     {
         $this->IDfichier = $IDfichier;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Telecharger[]
+     */
+    public function getTelechargers(): Collection
+    {
+        return $this->telechargers;
+    }
+
+    public function addTelecharger(Telecharger $telecharger): self
+    {
+        if (!$this->telechargers->contains($telecharger)) {
+            $this->telechargers[] = $telecharger;
+            $telecharger->setIDFichier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTelecharger(Telecharger $telecharger): self
+    {
+        if ($this->telechargers->removeElement($telecharger)) {
+            // set the owning side to null (unless already changed)
+            if ($telecharger->getIDFichier() === $this) {
+                $telecharger->setIDFichier(null);
+            }
+        }
 
         return $this;
     }
