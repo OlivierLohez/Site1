@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class CarteIdentiteType extends AbstractType
 {
@@ -38,6 +40,30 @@ class CarteIdentiteType extends AbstractType
 
         ->add('CP', IntegerType::class, ['attr' => ['class'=> 'form-control']
                                       , 'label_attr' => ['class'=> 'fw-bold']])
+    
+        ->add('justificatif de domicile', FileType::class, array('label' => 'Fichier à télécharger',
+        'constraints' => [
+        new File([
+        'maxSize' => '200k',
+        'mimeTypes' => [
+        'application/pdf',
+        'application/x-pdf',
+        ],
+        'mimeTypesMessage' => 'Le site accepte uniquement les fichiers PDF',
+        ])
+        ],))
+
+        ->add('copie de l\'ancienne carte identité', FileType::class, array('label' => 'Fichier à télécharger',
+        'constraints' => [
+        new File([
+        'maxSize' => '200k',
+        'mimeTypes' => [
+        'image/jpeg',
+        'image/png',
+        ],
+        'mimeTypesMessage' => 'Le site accepte uniquement les fichiers PDF',
+        ])
+        ],))
 
         ->add('Envoyer', SubmitType::class, ['attr' => ['class'=> 'btn bg-primary text-white m-4' ], 'row_attr' => ['class' => 'text-center'],]);
     }
